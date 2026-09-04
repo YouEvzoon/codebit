@@ -1,0 +1,10 @@
+<script setup>
+import { ref } from 'vue'
+const active = ref(0)
+const questions = ['¿Qué incluye el precio de Q1,500?', '¿Cuánto tarda en estar lista mi página?', '¿Necesito tener dominio y hosting?', '¿Mi página funcionará en celulares?']
+</script>
+<template><section class="section faq"><div class="container faq__layout"><div><p class="eyebrow">Preguntas frecuentes</p><h2>Antes de<br><span>empezar.</span></h2></div><div class="faq__list"><article v-for="(question, index) in questions" :key="question" :class="{ active: active === index }"><button @click="active = active === index ? -1 : index"><span>{{ question }}</span><b>{{ active === index ? '−' : '+' }}</b></button><p v-if="active === index">{{ index === 0 ? 'Incluye diseño profesional, desarrollo con Vue.js, formulario de contacto, botón de WhatsApp y adaptación para celulares y computadoras.' : index === 1 ? 'Trabajamos para entregarla en pocos días, dependiendo de la información y materiales que nos compartas.' : index === 2 ? 'Podemos orientarte con la compra y configuración del dominio y hosting para que tu negocio quede publicado.' : 'Sí. Tu página será responsive y se verá correctamente en celulares, tablets y computadoras.' }}</p></article></div></div></section></template>
+<style scoped>
+.faq { background: var(--paper); color: var(--ink); }.faq .eyebrow { color: #259653; }.faq .eyebrow::before { background: #259653; }.faq h2 span { color: #36b969; }.faq__layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 12%; }.faq__list { border-top: 1px solid #b9c6bb; }.faq article { border-bottom: 1px solid #b9c6bb; }.faq button { display: flex; justify-content: space-between; width: 100%; padding: 24px 0; border: 0; color: var(--ink); background: transparent; text-align: left; font-size: 18px; }.faq button b { color: #259653; font-size: 24px; font-weight: 400; }.faq article p { max-width: 580px; padding: 0 35px 26px 0; color: #59665e; line-height: 1.6; font-size: 14px; }
+@media (max-width: 700px) { .faq__layout { grid-template-columns: 1fr; gap: 42px; } }
+</style>
