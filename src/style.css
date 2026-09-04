@@ -1,4 +1,4 @@
-:root { --ink: #0b0d0c; --panel: #121614; --line: #2b342f; --muted: #96a39b; --paper: #f0f4ee; --acid: #b8ff3d; --green: #38d477; --sans: 'Trebuchet MS', 'Segoe UI', sans-serif; --display: Georgia, 'Times New Roman', serif; font-family: var(--sans); color: var(--paper); background: var(--ink); font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+:root { --ink: #0b0d0c; --panel: #121614; --line: #2b342f; --muted: #96a39b; --paper: #f0f4ee; --acid: #c5ff24; --green: #38d477; --sans: 'Trebuchet MS', 'Segoe UI', sans-serif; --display: Georgia, 'Times New Roman', serif; font-family: var(--sans); color: var(--paper); background: var(--ink); font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: var(--ink); }
