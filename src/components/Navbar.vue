@@ -10,7 +10,7 @@ const open = ref(false)
       <a class="logo" href="#inicio" aria-label="CODEBIT_DEV, ir al inicio"><img class="logo__image" :src="codebitLogo" alt="" /><span class="logo__name">CODEBIT<span class="logo__underscore">_</span>DEV</span></a>
       <button class="nav__toggle" aria-label="Abrir menu" @click="open = !open">{{ open ? '×' : '☰' }}</button>
       <nav :class="['nav__links', { 'nav__links--open': open }]">
-        <a href="#servicios" @click="open = false">Beneficios</a><a href="#proyectos" @click="open = false">Ejemplos</a><a href="#precios" @click="open = false">Oferta</a><a href="#contacto" @click="open = false">Contacto</a>
+        <a href="#servicios" @click="open = false">Beneficios</a><a href="#recargas" @click="open = false">Recargas</a><a href="#proyectos" @click="open = false">Ejemplos</a><a href="#precios" @click="open = false">Oferta</a><a href="#contacto" @click="open = false">Contacto</a>
       </nav>
       <a class="button nav__cta" href="#contacto">Cotizar ahora <span>↗</span></a>
     </div>
