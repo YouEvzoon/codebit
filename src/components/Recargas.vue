@@ -1,5 +1,13 @@
 <script setup>
+import { ref } from 'vue'
+
 const whatsappNumber = '50247571684'
+const facebookUrl = 'https://www.facebook.com/profile.php?id=61594174196942&sk=mentions'
+const verificationWhatsapp = '50247571684'
+const diamondsUnlocked = ref(false)
+const openedFacebook = ref(false)
+const confirmedFollow = ref(false)
+const sentScreenshot = ref(false)
 
 const products = [
   {
@@ -9,12 +17,12 @@ const products = [
     description: 'Elige tu paquete y recibe tu recarga de forma rápida y segura.',
     tone: 'diamonds',
     packages: [
-      ['100 diamantes', 'Q15'],
-      ['310 diamantes', 'Q30'],
-      ['520 diamantes', 'Q50'],
-      ['1060 diamantes', 'Q90'],
-      ['2180 diamantes', 'Q175'],
-      ['5600 diamantes', 'Q420']
+      ['100 diamantes', 'Q15', 'Q12'],
+      ['310 diamantes', 'Q30', 'Q29'],
+      ['520 diamantes', 'Q50', 'Q45'],
+      ['1060 diamantes', 'Q90', 'Q88'],
+      ['2180 diamantes', 'Q175', 'Q170'],
+      ['5600 diamantes', 'Q420', 'Q420']
     ],
     details: ['Transferencia: Banrural, cuenta monetaria 3151030847', 'Titular: Everzon de la Cruz Oajaca Cornel']
   },
@@ -47,8 +55,19 @@ const products = [
 
 function requestRecharge(product, pack) {
   const action = product.id === 'netflix' ? 'adquirir' : 'solicitar una recarga de'
-  const message = `Hola, quiero ${action} ${product.title.toLowerCase()}: ${pack[0]} por ${pack[1]}.`
+  const price = product.id === 'diamantes' && diamondsUnlocked.value ? pack[2] : pack[1]
+  const message = `Hola, quiero ${action} ${product.title.toLowerCase()}: ${pack[0]} por ${price}.`
   window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
+}
+
+function unlockDiamondsOffer() {
+  if (openedFacebook.value && confirmedFollow.value && sentScreenshot.value) diamondsUnlocked.value = true
+}
+
+function sendScreenshot() {
+  sentScreenshot.value = true
+  const message = 'Hola, ya sigo la página de Facebook y quiero la oferta de diamantes. Adjunto la captura de pantalla para verificarlo.'
+  window.open(`https://wa.me/${verificationWhatsapp}?text=${encodeURIComponent(message)}`, '_blank')
 }
 </script>
 
@@ -77,9 +96,18 @@ function requestRecharge(product, pack) {
             <ul v-if="product.details" class="product-details">
               <li v-for="detail in product.details" :key="detail">{{ detail }}</li>
             </ul>
+            <div v-if="product.id === 'diamantes' && !diamondsUnlocked" class="diamonds-offer-lock">
+              <strong>Oferta nueva de diamantes</strong>
+              <span>Sigue nuestra página de Facebook para ver los precios especiales.</span>
+              <a :href="facebookUrl" target="_blank" rel="noopener noreferrer" @click="openedFacebook = true">Seguir en Facebook ↗</a>
+              <label><input v-model="confirmedFollow" type="checkbox" :disabled="!openedFacebook"> Ya sigo la página</label>
+              <button type="button" :disabled="!confirmedFollow" @click="sendScreenshot">Enviar captura por WhatsApp ↗</button>
+              <label><input v-model="sentScreenshot" type="checkbox" :disabled="!confirmedFollow"> Ya envié la captura</label>
+              <button type="button" :disabled="!sentScreenshot" @click="unlockDiamondsOffer">Mostrar oferta</button>
+            </div>
             <div class="package-list">
               <button v-for="pack in product.packages" :key="pack[0]" class="package" type="button" @click="requestRecharge(product, pack)">
-                <span>{{ pack[0] }}</span><strong>{{ pack[1] }}</strong><b>↗</b>
+                <span>{{ pack[0] }}</span><strong>{{ product.id === 'diamantes' && diamondsUnlocked ? pack[2] : pack[1] }}</strong><b>↗</b>
               </button>
             </div>
             <p class="recharge-card__hint">Selecciona una opción para pedirla por WhatsApp. Recuerda enviar tu comprobante de compra por WhatsApp.</p>
@@ -92,6 +120,7 @@ function requestRecharge(product, pack) {
 
 <style scoped>
 .recargas { background: #171d19; color: var(--paper); }.recargas h2 span { color: var(--acid); }.recargas .section-copy { color: #b1bcb4; }.recargas .eyebrow { color: var(--acid); }.recharge-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }.recharge-card { display: block; min-width: 0; overflow: hidden; border: 1px solid #354239; background: #202822; }.recharge-card__visual { position: relative; display: flex; min-height: 245px; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }.recharge-card--diamonds .recharge-card__visual { color: #dc6cff; background: linear-gradient(145deg, #3b1451, #702184); }.recharge-card--gold .recharge-card__visual { color: #ffd56a; background: linear-gradient(145deg, #272116, #8d6517); }.recharge-card--netflix .recharge-card__visual { color: #ff5364; background: linear-gradient(145deg, #4b101a, #b51f35); }.recharge-card__visual::before, .recharge-card__visual::after { content: ''; position: absolute; width: 180%; height: 42px; background: currentColor; opacity: .12; transform: rotate(-55deg); }.recharge-card__visual::before { top: 20%; }.recharge-card__visual::after { top: 62%; }.recharge-card__badge { position: relative; z-index: 1; padding: 7px 10px; border: 1px solid currentColor; font-size: 9px; font-weight: 700; letter-spacing: 1px; }.recharge-card__symbol { position: relative; z-index: 1; margin: 28px 0 18px; font-size: clamp(52px, 8vw, 88px); line-height: 1; text-shadow: 8px 8px 0 rgba(0,0,0,.2); }.recharge-card__visual > span { position: relative; z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: 2px; }.recharge-card__body { padding: 24px 20px 22px; }.recharge-card__eyebrow { color: var(--acid); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }.recharge-card h3 { margin-top: 10px; font-family: var(--display); font-size: clamp(25px, 3vw, 37px); font-weight: 400; }.recharge-card__description { min-height: 48px; margin-top: 14px; color: #aeb9b1; font-size: 14px; line-height: 1.5; }.product-details { display: grid; gap: 8px; margin: 20px 0 0; padding: 0; color: #aeb9b1; font-size: 12px; line-height: 1.35; list-style: none; }.product-details li::before { content: '•'; margin-right: 8px; color: var(--acid); }.package-list { margin-top: 22px; border-top: 1px solid #3c4940; }.package { display: grid; grid-template-columns: 1fr auto 18px; align-items: center; width: 100%; gap: 10px; padding: 13px 0; border: 0; border-bottom: 1px solid #3c4940; color: var(--paper); background: transparent; text-align: left; }.package span { font-size: 13px; text-transform: capitalize; }.package strong { color: var(--acid); font-size: 15px; }.package b { color: #829188; font-size: 18px; font-weight: 400; }.package:hover span, .package:hover b { color: var(--acid); }.package:hover { padding-left: 5px; }.recharge-card__hint { margin-top: 18px; color: #829188; font-size: 11px; line-height: 1.4; }
+.diamonds-offer-lock { display: grid; gap: 10px; padding: 14px; margin: 18px 0; border: 1px solid #dc6cff; background: rgba(112,33,132,.18); }.diamonds-offer-lock strong { color: #f0c4ff; font-size: 14px; }.diamonds-offer-lock span, .diamonds-offer-lock label { color: #c8b9cc; font-size: 12px; line-height: 1.4; }.diamonds-offer-lock a { width: fit-content; color: #f0c4ff; font-size: 12px; font-weight: 700; }.diamonds-offer-lock input { accent-color: #dc6cff; margin-right: 6px; }.diamonds-offer-lock button { width: fit-content; padding: 8px 12px; border: 1px solid #dc6cff; color: #171d19; background: #dc6cff; font-size: 11px; font-weight: 700; text-transform: uppercase; }.diamonds-offer-lock button:disabled { cursor: not-allowed; opacity: .45; }
 @media (max-width: 1000px) { .recharge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 650px) { .recharge-grid { grid-template-columns: 1fr; } .recharge-card__visual { min-height: 220px; } .recharge-card__body { padding: 24px 18px 20px; } }
 </style>
