@@ -15,7 +15,8 @@ const products = [
       ['1060 diamantes', 'Q90'],
       ['2180 diamantes', 'Q175'],
       ['5600 diamantes', 'Q420']
-    ]
+    ],
+    details: ['Transferencia: Banrural, cuenta monetaria 3151030847', 'Titular: Everzon de la Cruz Oajaca Cornel']
   },
   {
     id: 'oro',
@@ -30,7 +31,8 @@ const products = [
       ['1000 oro', 'Q90'],
       ['2000 oro', 'Q175'],
       ['5000 oro', 'Q420']
-    ]
+    ],
+    details: ['Transferencia: Banrural, cuenta monetaria 3151030847', 'Titular: Everzon de la Cruz Oajaca Cornel']
   },
   {
     id: 'netflix',
@@ -39,7 +41,7 @@ const products = [
     description: 'Disfruta tus series y películas favoritas por solo Q35 al mes.',
     tone: 'netflix',
     packages: [['Perfil mensual', 'Q35']],
-    details: ['Un solo dispositivo de uso constante', 'Pagos del 1 al 2 de cada mes', 'Pago por transferencia o efectivo en Tienda la Colmenita']
+    details: ['Un solo dispositivo de uso constante', 'Se entrega un correo para solicitar códigos de acceso', 'Evita rapido el acceso de ver temporalmente', 'Pagos del 1 al 2 de cada mes', 'Pago por transferencia o efectivo en Tienda la Colmenita', 'Transferencia: Banrural, cuenta monetaria 3151030847', 'Titular: Everzon de la Cruz Oajaca Cornel']
   }
 ]
 
@@ -80,7 +82,7 @@ function requestRecharge(product, pack) {
                 <span>{{ pack[0] }}</span><strong>{{ pack[1] }}</strong><b>↗</b>
               </button>
             </div>
-            <p class="recharge-card__hint">Selecciona una opción para pedirla por WhatsApp</p>
+            <p class="recharge-card__hint">Selecciona una opción para pedirla por WhatsApp. Recuerda enviar tu comprobante de compra por WhatsApp.</p>
           </div>
         </article>
       </div>
