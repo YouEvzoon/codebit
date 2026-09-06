@@ -2,7 +2,6 @@
 import Navbar from '../components/Navbar.vue'
 import Recargas from '../components/Recargas.vue'
 import Articles from '../components/Articles.vue'
-import Comments from '../components/Comments.vue'
 import Footer from '../components/Footer.vue'
 
 function goToSection(sectionId) {
@@ -24,7 +23,6 @@ function goToSection(sectionId) {
     </section>
     <Recargas />
     <Articles />
-    <Comments page-key="services" page-name="nuestros otros servicios" />
   </main>
   <Footer />
 </template>
