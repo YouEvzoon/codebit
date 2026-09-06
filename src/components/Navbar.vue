@@ -2,17 +2,23 @@
 import { ref } from 'vue'
 import codebitLogo from '../assets/logocodebitdev.png'
 const open = ref(false)
+const isServicesPage = window.location.hash.startsWith('#/servicios')
+
+function goToSection(sectionId) {
+  open.value = false
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+}
 </script>
 
 <template>
   <header class="nav">
     <div class="container nav__inner">
-      <a class="logo" href="#inicio" aria-label="CODEBIT_DEV, ir al inicio"><img class="logo__image" :src="codebitLogo" alt="" /><span class="logo__name">CODEBIT<span class="logo__underscore">_</span>DEV</span></a>
+      <a class="logo" :href="isServicesPage ? '#/servicios' : '#/'" aria-label="CODEBIT_DEV, ir al inicio"><img class="logo__image" :src="codebitLogo" alt="" /><span class="logo__name">CODEBIT<span class="logo__underscore">_</span>DEV</span></a>
       <button class="nav__toggle" aria-label="Abrir menu" @click="open = !open">{{ open ? '×' : '☰' }}</button>
       <nav :class="['nav__links', { 'nav__links--open': open }]">
-        <a href="#servicios" @click="open = false">Beneficios</a><a href="#recargas" @click="open = false">Recargas</a><a href="#proyectos" @click="open = false">Ejemplos</a><a href="#precios" @click="open = false">Oferta</a><a href="#contacto" @click="open = false">Contacto</a>
+        <template v-if="isServicesPage"><a href="#/" @click="open = false">Desarrollo web</a><a href="#recargas" @click.prevent="goToSection('recargas')">Recargas</a><a href="#articulos" @click.prevent="goToSection('articulos')">Artículos en venta</a></template><template v-else><a href="#/servicios" @click="open = false">Otros servicios</a><a href="#servicios" @click="open = false">Beneficios</a><a href="#proyectos" @click="open = false">Ejemplos</a><a href="#precios" @click="open = false">Oferta</a><a href="#contacto" @click="open = false">Contacto</a></template>
       </nav>
-      <a class="button nav__cta" href="#contacto">Cotizar ahora <span>↗</span></a>
+      <a class="button nav__cta" :href="isServicesPage ? '#recargas' : '#contacto'" @click="isServicesPage && $event.preventDefault(); isServicesPage && goToSection('recargas')">{{ isServicesPage ? 'Ver recargas' : 'Cotizar ahora' }} <span>↗</span></a>
     </div>
   </header>
 </template>

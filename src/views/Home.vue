@@ -2,7 +2,6 @@
 import Navbar from '../components/Navbar.vue'
 import Hero from '../components/Hero.vue'
 import Services from '../components/Services.vue'
-import Recargas from '../components/Recargas.vue'
 import Portfolio from '../components/Portfolio.vue'
 import Pricing from '../components/Pricing.vue'
 import Testimonials from '../components/Testimonials.vue'
@@ -16,7 +15,6 @@ import Footer from '../components/Footer.vue'
   <main>
     <Hero />
     <Services />
-    <Recargas />
     <Portfolio />
     <Pricing />
     <Testimonials />
